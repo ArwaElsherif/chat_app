@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
              Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('don\'t have an account?',
+                Text('don\'t have an account? ',
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('   Register',
+                  child: Text('  Register',
                   style: TextStyle(
                     color: Color(0xffc7ede6),
                   ),

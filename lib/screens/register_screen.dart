@@ -43,11 +43,11 @@ class RegisterScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'already have an account?',
+                  'already have an account? ',
                   style: TextStyle(color: Colors.white),
                 ),
                 Text(
-                  '   Login',
+                  '  Login',
                   style: TextStyle(color: Color(0xffc7ede6)),
                 ),
               ],
