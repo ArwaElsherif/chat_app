@@ -1,3 +1,4 @@
+import 'package:chat_app/constants.dart';
 import 'package:chat_app/screens/register_screen.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
@@ -9,62 +10,62 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF2B475E),
+      backgroundColor: kPrimaryColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
+        child: ListView(
           children: [
-            Spacer(flex: 2,),
-            Image.asset('assets/images/scholar.png'),
-            Text(
-              'Scholar Chat',
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white,
-                fontFamily: 'pacifico',
-              ),
-            ),
-            Spacer(flex: 2,),
+            SizedBox(height: 75,),
+            Image.asset('assets/images/scholar.png' ,height: 100,),
             Row(
-              children: [
-                Text('LOGIN', style: TextStyle(fontSize: 24, color: Colors.white)),
-              ],
-            ),
-            SizedBox(height: 15,),
-            CustomTextField(hintText: 'Email',),
-            SizedBox(height: 10,),
-            CustomTextField(hintText: 'Password',),
-            SizedBox(height: 20,), 
-            CustomButton(text: 'LOGIN',),
-            SizedBox(height: 10,),
-             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('don\'t have an account? ',
-                style: TextStyle(
-                  color: Colors.white,
+                Text(
+                  'Scholar Chat',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Colors.white,
+                    fontFamily: 'pacifico',
+                  ),
                 ),
+              ],
+            ),
+            SizedBox(height: 75,),
+            Row(
+              children: [
+                Text(
+                  'LOGIN',
+                  style: TextStyle(fontSize: 24, color: Colors.white),
+                ),
+              ],
+            ),
+            SizedBox(height: 15),
+            CustomTextField(hintText: 'Email'),
+            SizedBox(height: 10),
+            CustomTextField(hintText: 'Password'),
+            SizedBox(height: 20),
+            CustomButton(text: 'LOGIN'),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'don\'t have an account? ',
+                  style: TextStyle(color: Colors.white),
                 ),
                 GestureDetector(
-                                    onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return RegisterScreen();
-                        },
-                      ),
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context , RegisterScreen.id,
                     );
                   },
-                  child: Text('  Register',
-                  style: TextStyle(
-                    color: Color(0xffc7ede6),
+                  child: Text(
+                    '  Register',
+                    style: TextStyle(color: Color(0xffc7ede6)),
                   ),
-                  ),
-                )
+                ),
               ],
-             ),
-             Spacer(flex: 4,)
+            ),
           ],
         ),
       ),

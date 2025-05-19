@@ -1,29 +1,36 @@
+import 'package:chat_app/constants.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
 
+class RegisterScreen extends StatelessWidget {
+   const RegisterScreen({super.key});
+ static String id ='RegisterScreen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF2B475E),
+      backgroundColor: kPrimaryColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
+        child: ListView(
           children: [
-            Spacer(flex: 2),
-            Image.asset('assets/images/scholar.png'),
-            Text(
-              'Scholar Chat',
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white,
-                fontFamily: 'pacifico',
-              ),
+            SizedBox(height: 75),
+            Image.asset('assets/images/scholar.png' ,height: 100,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Scholar Chat',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Colors.white,
+                    fontFamily: 'pacifico',
+                  ),
+                ),
+              ],
             ),
-            Spacer(flex: 2),
+            SizedBox(height: 75,),
             Row(
               children: [
                 Text(
@@ -46,13 +53,17 @@ class RegisterScreen extends StatelessWidget {
                   'already have an account? ',
                   style: TextStyle(color: Colors.white),
                 ),
-                Text(
-                  '  Login',
-                  style: TextStyle(color: Color(0xffc7ede6)),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    '  Login',
+                    style: TextStyle(color: Color(0xffc7ede6)),
+                  ),
                 ),
               ],
             ),
-            Spacer(flex: 4),
           ],
         ),
       ),
