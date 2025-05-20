@@ -3,7 +3,6 @@
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/screens/chat_screen.dart';
-import 'package:chat_app/screens/login_screen.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           'Success! User registered.',
                           Colors.green,
                         );
-                        Navigator.pop(context,LoginScreen.id);
+                        Navigator.pop(context);
                       } on FirebaseAuthException catch (e) {
                         String message;
                         switch (e.code) {
