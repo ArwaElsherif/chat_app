@@ -3,6 +3,7 @@
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/screens/chat_screen.dart';
+import 'package:chat_app/screens/register_screen.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: ListView(
               children: [
                 SizedBox(height: 75),
-                Image.asset('assets/images/scholar.png', height: 100),
+                Image.asset(kLogo, height: 100),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -135,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, 'RegisterScreen');
+                        Navigator.pushNamed(context, RegisterScreen.id);
                       },
                       child: Text(
                         ' Register',

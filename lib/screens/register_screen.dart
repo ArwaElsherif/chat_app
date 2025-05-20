@@ -3,6 +3,7 @@
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/screens/chat_screen.dart';
+import 'package:chat_app/screens/login_screen.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: ListView(
               children: [
                 SizedBox(height: 75),
-                Image.asset('assets/images/scholar.png', height: 100),
+                Image.asset(kLogo, height: 100),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -103,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           'Success! User registered.',
                           Colors.green,
                         );
-                        Navigator.pop(context,ChatScreen.id);
+                        Navigator.pop(context,LoginScreen.id);
                       } on FirebaseAuthException catch (e) {
                         String message;
                         switch (e.code) {
@@ -155,7 +156,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.pop(context,ChatScreen.id);
                       },
                       child: Text(
                         '  Login',
