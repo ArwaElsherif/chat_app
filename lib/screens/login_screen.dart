@@ -44,7 +44,7 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 10),
             CustomTextField(hintText: 'Password'),
             SizedBox(height: 20),
-            CustomButton(text: 'LOGIN'),
+            CustomButton(text: 'LOGIN', onTap: () { },),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
