@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
-  CustomTextField({super.key, required this.hintText, this.onChanged,   this.isPassword = false,});
+class CustomTextFormField extends StatelessWidget {
+  CustomTextFormField({super.key, required this.hintText, this.onChanged,   this.isPassword = false,});
   final String hintText;
   Function(String)? onChanged;
   final bool isPassword;

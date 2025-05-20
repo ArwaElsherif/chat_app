@@ -1,8 +1,10 @@
 // ignore_for_file: must_be_immutable, avoid_print, use_build_context_synchronously
 
 import 'package:chat_app/constants.dart';
+import 'package:chat_app/helper/show_snack_bar.dart';
+import 'package:chat_app/screens/chat_screen.dart';
 import 'package:chat_app/widgets/custom_button.dart';
-import 'package:chat_app/widgets/custom_text_field.dart';
+import 'package:chat_app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -61,14 +63,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ],
                 ),
                 SizedBox(height: 15),
-                CustomTextField(
+                CustomTextFormField(
                   hintText: 'Email',
                   onChanged: (data) {
                     email = data;
                   },
                 ),
                 SizedBox(height: 10),
-                CustomTextField(
+                CustomTextFormField(
                   hintText: 'Password',
                   onChanged: (data) {
                     password = data;
@@ -101,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           'Success! User registered.',
                           Colors.green,
                         );
-                        Navigator.pop(context);
+                        Navigator.pop(context,ChatScreen.id);
                       } on FirebaseAuthException catch (e) {
                         String message;
                         switch (e.code) {
@@ -169,13 +171,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-
-  void showSnackBar(BuildContext context, String message, Color color) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message), backgroundColor: color));
-  }
-
   Future<void> registerUser() async {
     UserCredential userCredential = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email!, password: password!);
