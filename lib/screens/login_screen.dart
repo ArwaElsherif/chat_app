@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       try {
                         await loginUser();
-                        Navigator.pushNamed(context, ChatScreen.id);
+                        Navigator.pushReplacementNamed(context, ChatScreen.id);
                       } on FirebaseAuthException catch (e) {
                         String message;
 
@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         } else if (e.code == 'invalid-email') {
                           message = 'Invalid email format.';
                         } else {
-                          message = 'Error: ${e.message}';
+                          message = 'account not found, register first';
                         }
 
                         showSnackBar(context, message, Colors.red);

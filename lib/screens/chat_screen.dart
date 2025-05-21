@@ -18,7 +18,7 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: messages.orderBy(kCreatedAt,).snapshots(),
+      stream: messages.orderBy(kCreatedAt,descending: true).snapshots(),
     builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
   if (snapshot.connectionState == ConnectionState.waiting) {
     return const Scaffold(
@@ -55,6 +55,7 @@ class ChatScreen extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.builder(
+              reverse: true,
               controller: _scrollController,
               itemCount: messagesList.length,
               itemBuilder: (BuildContext context, int index) {
@@ -74,7 +75,7 @@ class ChatScreen extends StatelessWidget {
                 controller.clear();
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   _scrollController.animateTo(
-                    _scrollController.position.maxScrollExtent,
+                    0,
                     duration: Duration(seconds: 1),
                     curve: Curves.easeOut,
                   );
