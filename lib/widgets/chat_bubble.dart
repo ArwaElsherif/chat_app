@@ -32,3 +32,34 @@ class ChatBubble extends StatelessWidget {
 
   }
 }
+
+class ChatBubbleForFriend extends StatelessWidget {
+   const ChatBubbleForFriend({
+    super.key,
+    required this.message,
+  });
+ final Message message;
+  @override
+  Widget build(BuildContext context) {
+   return Align(
+  alignment: Alignment.centerRight,
+  child: Container(
+    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+    decoration: BoxDecoration(
+      color: Color(0XFF006D84),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(32),
+        topRight: Radius.circular(32),
+        bottomLeft: Radius.circular(32),
+      ),
+    ),
+    child: Text(
+      message.message,
+      style: TextStyle(color: Colors.white),
+    ),
+  ),
+);
+
+  }
+}
