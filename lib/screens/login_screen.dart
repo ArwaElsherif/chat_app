@@ -95,18 +95,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                         return;
                       }
+
                       try {
-                        loginUser();
-                        Navigator.pushNamed(context, ChatScreen.id);
+                        await loginUser();
+                        Navigator.pushReplacementNamed(context, ChatScreen.id);
                       } on FirebaseAuthException catch (e) {
                         String message;
 
                         if (e.code == 'user-not-found') {
                           message = 'No user found for this email.';
                         } else if (e.code == 'wrong-password') {
-                          message = 'Wrong password provided for this user.';
+                          message = 'Wrong password provided.';
                         } else if (e.code == 'invalid-email') {
-                          message = 'The email address is invalid.';
+                          message = 'Invalid email format.';
                         } else {
                           message = 'Error: ${e.message}';
                         }
