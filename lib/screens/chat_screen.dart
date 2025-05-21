@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({super.key,});
+  ChatScreen({super.key});
   static String id = 'ChatScreen';
   CollectionReference messages = FirebaseFirestore.instance.collection(
     kMessageCollections,
@@ -17,7 +17,7 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  String email=  ModalRoute.of(context)!.settings.arguments as String;
+    String email = ModalRoute.of(context)!.settings.arguments as String;
     return StreamBuilder<QuerySnapshot>(
       stream: messages.orderBy(kCreatedAt, descending: true).snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -40,11 +40,14 @@ class ChatScreen extends StatelessWidget {
           }
           return Scaffold(
             appBar: AppBar(
-              automaticallyImplyLeading: false,
               backgroundColor: kPrimaryColor,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [Image.asset(kLogo, height: 50), Text('Chat')],
+                children: [
+                  Spacer(flex: 1,),
+                  Image.asset(kLogo, height: 50), Text('Chat'),
+                  Spacer(flex: 2,),
+                  ],
               ),
             ),
             body: Column(
@@ -55,7 +58,9 @@ class ChatScreen extends StatelessWidget {
                     controller: _scrollController,
                     itemCount: messagesList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return messagesList[index].id == email? ChatBubble(message: messagesList[index]) : ChatBubbleForFriend(message: messagesList[index]);
+                      return messagesList[index].id == email
+                          ? ChatBubble(message: messagesList[index])
+                          : ChatBubbleForFriend(message: messagesList[index]);
                     },
                   ),
                 ),

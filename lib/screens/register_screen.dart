@@ -172,7 +172,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
   Future<void> registerUser() async {
-    UserCredential userCredential = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email!, password: password!);
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: email!,
+    password: password!,
+  );
   }
 }
