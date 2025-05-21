@@ -20,26 +20,11 @@ class ChatScreen extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: messages.orderBy(kCreatedAt).snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
-
-        if (snapshot.hasError) {
-          return const Scaffold(
-            body: Center(
-              child: Text('Something went wrong. Please try again later.'),
-            ),
-          );
-        }
-
         if (snapshot.hasData) {
           List<Message> messagesList = [];
           for (int i = 0; i < snapshot.data!.docs.length; i++) {
             messagesList.add(Message.fromjson(snapshot.data!.docs[i]));
           }
-
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -96,7 +81,7 @@ class ChatScreen extends StatelessWidget {
             ),
           );
         } else {
-          return const Scaffold(body: Center(child: Text('No messages yet.')));
+          return Text('Loading...');
         }
       },
     );
