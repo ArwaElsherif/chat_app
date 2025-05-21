@@ -18,87 +18,93 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: messages.orderBy(kCreatedAt).snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
+      stream: messages.orderBy(kCreatedAt,).snapshots(),
+    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+  if (snapshot.connectionState == ConnectionState.waiting) {
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
 
-        if (snapshot.hasError) {
-          return const Scaffold(
-            body: Center(
-              child: Text('Something went wrong. Please try again later.'),
+  if (snapshot.hasError) {
+    return const Scaffold(
+      body: Center(
+        child: Text('Something went wrong. Please try again later.'),
+      ),
+    );
+  }
+
+  if (snapshot.hasData) {
+    List<Message> messagesList = [];
+    for (int i = 0; i < snapshot.data!.docs.length; i++) {
+      messagesList.add(Message.fromjson(snapshot.data!.docs[i]));
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: kPrimaryColor,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Image.asset(kLogo, height: 50), Text('Chat')],
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              controller: _scrollController,
+              itemCount: messagesList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ChatBubble(message: messagesList[index]);
+              },
             ),
-          );
-        }
-
-        if (snapshot.hasData) {
-          List<Message> messagesList = [];
-          for (int i = 0; i < snapshot.data!.docs.length; i++) {
-            messagesList.add(Message.fromjson(snapshot.data!.docs[i]));
-          }
-
-          return Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              backgroundColor: kPrimaryColor,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Image.asset(kLogo, height: 50), Text('Chat')],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: TextField(
+              controller: controller,
+              onSubmitted: (data) {
+                messages.add({
+                  kMessage: data,
+                  kCreatedAt: DateTime.now(),
+                });
+                controller.clear();
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  _scrollController.animateTo(
+                    _scrollController.position.maxScrollExtent,
+                    duration: Duration(seconds: 1),
+                    curve: Curves.easeOut,
+                  );
+                });
+              },
+              decoration: InputDecoration(
+                hintText: 'Send Message',
+                suffixIcon: Icon(Icons.send, color: kPrimaryColor),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(color: kPrimaryColor),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide(color: kPrimaryColor),
+                ),
               ),
             ),
-            body: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    itemCount: messagesList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ChatBubble(message: messagesList[index]);
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: TextField(
-                    controller: controller,
-                    onSubmitted: (data) {
-                      messages.add({
-                        kMessage: data,
-                        kCreatedAt: DateTime.now(),
-                      });
-                      controller.clear();
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        _scrollController.animateTo(
-                          _scrollController.position.maxScrollExtent,
-                          duration: Duration(seconds: 1),
-                          curve: Curves.easeOut,
-                        );
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Send Message',
-                      suffixIcon: Icon(Icons.send, color: kPrimaryColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(color: kPrimaryColor),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(color: kPrimaryColor),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        } else {
-          return const Scaffold(body: Center(child: Text('No messages yet.')));
-        }
-      },
+          ),
+        ],
+      ),
     );
+  } else {
+    return const Scaffold(
+      body: Center(
+        child: Text('No messages yet.'),
+      ),
+    );
+  }
+}
+);
   }
 }
