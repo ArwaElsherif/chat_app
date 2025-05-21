@@ -107,6 +107,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       } on FirebaseAuthException catch (e) {
                         String message;
                         switch (e.code) {
+                          case 'user-not-found':
+                            message = 'No user found for this email.';
+                            break;
+                          case 'wrong-password':
+                            message = 'Wrong password provided.';
+                            break;
                           case 'weak-password':
                             message = 'The password is too weak.';
                             break;
@@ -129,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 'Too many requests. Please try again later.';
                             break;
                           default:
-                            message = 'An unknown error occurred: ${e.message}';
+                            message = e.message ?? 'An unknown error occurred.';
                         }
                         showSnackBar(context, message, Colors.red);
                       } catch (e) {
@@ -155,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pop(context,ChatScreen.id);
+                        Navigator.pop(context, ChatScreen.id);
                       },
                       child: Text(
                         '  Login',
@@ -171,10 +177,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
   Future<void> registerUser() async {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
-    email: email!,
-    password: password!,
-  );
+      email: email!,
+      password: password!,
+    );
   }
 }

@@ -83,7 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       setState(() {
                         isLoading = true;
                       });
-
                       if (email == null || password == null) {
                         showSnackBar(
                           context,
@@ -95,23 +94,39 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                         return;
                       }
-
                       try {
                         await loginUser();
-                        Navigator.pushNamed(context, ChatScreen.id, arguments: email);
+                        Navigator.pushNamed(
+                          context,
+                          ChatScreen.id,
+                          arguments: email,
+                        );
                       } on FirebaseAuthException catch (e) {
+                          print('Error code: ${e.code}');  
                         String message;
-
-                        if (e.code == 'user-not-found') {
-                          message = 'No user found for this email.';
-                        } else if (e.code == 'wrong-password') {
-                          message = 'Wrong password provided.';
-                        } else if (e.code == 'invalid-email') {
-                          message = 'Invalid email format.';
-                        } else {
-                          message = 'account not found, register first';
+                        switch (e.code) {
+                          case 'user-not-found':
+                            message = 'No user found for this email.';
+                            break;
+                          case 'wrong-password':
+                          
+                            message = 'Wrong password provided.';
+                            break;
+                          case 'invalid-email':
+                            message = 'The email address is invalid.';
+                            break;
+                          case 'network-request-failed':
+                            message =
+                                'Network error. Please check your connection.';
+                            break;
+                          case 'too-many-requests':
+                            message =
+                                'Too many requests. Please try again later.';
+                            break;
+                          default:
+                           print('Error code: ${e.code}'); 
+                            message = 'email or password may be wrong, try again.';
                         }
-
                         showSnackBar(context, message, Colors.red);
                       } catch (e) {
                         showSnackBar(
@@ -156,8 +171,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> loginUser() async {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: email!,
-    password: password!,
-  );
+      email: email!,
+      password: password!,
+    );
   }
 }
