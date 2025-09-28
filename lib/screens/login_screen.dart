@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, avoid_print, use_build_context_synchronously
 
 import 'package:chat_app/constants.dart';
-import 'package:chat_app/cubits/login_cubit/cubit/login_cubit.dart';
+import 'package:chat_app/cubits/login_cubit/login_cubit.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/screens/chat_screen.dart';
 import 'package:chat_app/screens/register_screen.dart';

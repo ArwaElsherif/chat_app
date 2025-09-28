@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
@@ -21,7 +19,6 @@ class LoginCubit extends Cubit<LoginState> {
       );
       emit(LoginSuccess(email));
     } on FirebaseAuthException catch (e) {
-      print('-------->$e.code');
       String message;
       switch (e.code) {
         case 'user-not-found':

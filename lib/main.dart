@@ -1,4 +1,4 @@
-import 'package:chat_app/cubits/login_cubit/cubit/login_cubit.dart';
+import 'package:chat_app/cubits/login_cubit/login_cubit.dart';
 import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/screens/chat_screen.dart';
 import 'package:chat_app/screens/login_screen.dart';
