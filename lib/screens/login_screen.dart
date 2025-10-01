@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable, avoid_print, use_build_context_synchronously
 
 import 'package:chat_app/constants.dart';
-import 'package:chat_app/cubits/chat_cubit/cubit/chat_cubit.dart';
-import 'package:chat_app/cubits/login_cubit/login_cubit.dart';
+import 'package:chat_app/cubits/auth_cubit/auth_cubit.dart';
+import 'package:chat_app/cubits/chat_cubit/chat_cubit.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/screens/chat_screen.dart';
 import 'package:chat_app/screens/register_screen.dart';
@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
           BlocProvider.of<ChatCubit>(context).getMessages();
@@ -93,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                               Colors.red,
                             );
                           } else {
-                            context.read<LoginCubit>().loginUser(
+                            context.read<AuthCubit>().loginUser(
                               email: email!,
                               password: password!,
                             );

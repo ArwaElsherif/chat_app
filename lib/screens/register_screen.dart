@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, avoid_print, use_build_context_synchronously
 
 import 'package:chat_app/constants.dart';
-import 'package:chat_app/cubits/register_cubit/register_cubit.dart';
+import 'package:chat_app/cubits/auth_cubit/auth_cubit.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/screens/chat_screen.dart';
 import 'package:chat_app/screens/login_screen.dart';
@@ -22,7 +22,7 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterCubit, RegisterState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is RegisterSuccess) {
           Navigator.pushNamed(context, LoginScreen.id, arguments: state.email);
@@ -92,7 +92,7 @@ class RegisterScreen extends StatelessWidget {
                               Colors.red,
                             );
                           } else {
-                            context.read<RegisterCubit>().registerUser(
+                            context.read<AuthCubit>().registerUser(
                               email: email!,
                               password: password!,
                             );
