@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, avoid_print, use_build_context_synchronously
 
 import 'package:chat_app/constants.dart';
+import 'package:chat_app/cubits/chat_cubit/cubit/chat_cubit.dart';
 import 'package:chat_app/cubits/login_cubit/login_cubit.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/screens/chat_screen.dart';
@@ -24,6 +25,7 @@ class LoginScreen extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
+          BlocProvider.of<ChatCubit>(context).getMessages();
           Navigator.pushNamed(context, ChatScreen.id, arguments: state.email);
         } else if (state is LoginFailure) {
           showSnackBar(context, state.errorMessage, Colors.red);
